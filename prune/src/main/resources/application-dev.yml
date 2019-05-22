@@ -1,0 +1,37 @@
+spring:
+    datasource:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driverClassName: com.mysql.cj.jdbc.Driver
+        druid:
+            url: jdbc:mysql://10.206.2.180:3306/prune?useSSL=false&allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8
+            username: root
+            password: pass2017
+            initial-size: 1
+            max-active: 100
+            min-idle: 1
+            max-wait: 60000
+            pool-prepared-statements: true
+            max-pool-prepared-statement-per-connection-size: 20
+            time-between-eviction-runs-millis: 60000
+            min-evictable-idle-time-millis: 300000
+            validation-query: SELECT 1 FROM DUAL
+            test-while-idle: true
+            test-on-borrow: false
+            test-on-return: false
+            stat-view-servlet:
+              enabled: true
+              url-pattern: /druid/*
+              login-username: admin
+              login-password: Wange325
+            filter:
+                stat:
+                    log-slow-sql: true
+                    slow-sql-millis: 3000
+                    merge-sql: true
+                wall:
+                    config:
+                        multi-statement-allow: true
+
+
+logging:
+  config: classpath:logback-dev.xml

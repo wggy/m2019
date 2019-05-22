@@ -1,0 +1,50 @@
+server:
+  port: 8099
+
+spring:
+    # 环境 dev|prod
+  profiles:
+    active: dev
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  jpa:
+    database: MYSQL
+    open-in-view: false
+    properties:
+      hibernate:
+        show_sql: false
+        use_sql_comments: false
+        dialect: org.hibernate.dialect.MySQLDialect
+        new_generator_mappings: true
+        format_sql: true
+        hbm2ddl:
+          auto: update
+  redis:
+    cluster:
+      nodes: 10.206.2.180:6383,10.206.2.180:6384,10.206.2.180:6385,10.206.2.180:6386,10.206.2.180:6387,10.206.2.180:6388
+      timeout: 15000ms  # 执行命令超时时间 springboot2.x需要指定单位  /// # 执行命令超时时间 springboot1.x不需要指定单位
+      max-redirects: 5  # 跨集群执行命令时要遵循的最大重定向数量
+    cache:
+      cache-names:   #缓存的名称集合，多个采用逗号分割
+      type: redis
+      redis:
+        cache-null-values: false
+        time-to-live: 60000ms   #redis中缓存超时的时间，默认60000ms
+        use-key-prefix: false   #缓存数据key是否使用前缀，默认是true
+        key-prefix: prune_fix   #缓存数据key的前缀，在上面的配置为true时有效
+    lettuce:
+      pool:
+        max-active: 1000  # 连接池最大连接数（使用负值表示没有限制）
+        max-wait: -1ms      # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-idle: 10      # 连接池中的最大空闲连接
+        min-idle: 5       # 连接池中的最小空闲连接
+
+prune:
+  redis:
+    open: false
+    prefix: prune
+
+  app:
+    - demo1: {key: 00001, secret: ccd10fc388df4447b052e8103f0108c7}
+    - demo2: {key: 00002, secret: sfdsfdasfd}
