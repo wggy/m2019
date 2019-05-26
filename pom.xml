@@ -16,6 +16,11 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>prune</module>
+		<module>eureka-server</module>
+		<module>eureka-client</module>
+        <module>gateway</module>
+        <module>feign</module>
+		<module>config</module>
 	</modules>
 
 	<properties>
@@ -66,4 +71,20 @@
 		</developer>
 	</developers>
 
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>Greenwich.RELEASE</version>
+				<!-- 依赖pom文件 -->
+				<type>pom</type>
+				<!-- 专门用在dependencyManagement独立pom管理中，用于避免继承父类pom臃肿-->
+				<scope>import</scope>
+				<exclusions>
+				</exclusions>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 </project>

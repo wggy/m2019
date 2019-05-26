@@ -1,0 +1,14 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8088/eureka/
+server:
+  port: 8091
+spring:
+  application:
+    name: feign
+
+#开启熔断器
+feign:
+  hystrix:
+    enabled: true
