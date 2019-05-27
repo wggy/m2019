@@ -1,0 +1,45 @@
+spring:
+    jpa:
+      database: MYSQL
+      open-in-view: false
+      properties:
+        hibernate:
+          show_sql: false
+          use_sql_comments: false
+          dialect: org.hibernate.dialect.MySQLDialect
+          new_generator_mappings: true
+          format_sql: true
+          hbm2ddl:
+            auto: update
+    datasource:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driverClassName: com.mysql.cj.jdbc.Driver
+        druid:
+            url: jdbc:mysql://39.98.67.83:3306/xhl_db?useSSL=false&allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8
+            username: xhl
+            password: xhl_2018!
+            initial-size: 1
+            max-active: 100
+            min-idle: 1
+            max-wait: 60000
+            pool-prepared-statements: true
+            max-pool-prepared-statement-per-connection-size: 20
+            time-between-eviction-runs-millis: 60000
+            min-evictable-idle-time-millis: 300000
+            validation-query: SELECT 1 FROM DUAL
+            test-while-idle: true
+            test-on-borrow: false
+            test-on-return: false
+            stat-view-servlet:
+              enabled: true
+              url-pattern: /druid/*
+              login-username: admin
+              login-password: Wange325
+            filter:
+                stat:
+                    log-slow-sql: true
+                    slow-sql-millis: 3000
+                    merge-sql: true
+                wall:
+                    config:
+                        multi-statement-allow: true

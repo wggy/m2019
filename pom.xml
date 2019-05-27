@@ -21,7 +21,8 @@
         <module>gateway</module>
         <module>feign</module>
 		<module>config</module>
-	</modules>
+        <module>sf-api</module>
+    </modules>
 
 	<properties>
 		<java.version>1.8</java.version>
