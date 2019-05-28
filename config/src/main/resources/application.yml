@@ -9,7 +9,7 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/lynnlovemin/SpringCloudLesson.git #配置git仓库地址
+          uri: https://github.com/wggy/m2019.git #配置git仓库地址
           searchPaths: 第09课/config #配置仓库路径
           username: ****** #访问git仓库的用户名
           password: ****** #访问git仓库的用户密码
