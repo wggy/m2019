@@ -1,0 +1,12 @@
+spring:
+  cloud:
+    config:
+      name: eureka-client
+      label: master
+      discovery:
+        enabled: true
+        serviceId: config
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8088/eureka/
