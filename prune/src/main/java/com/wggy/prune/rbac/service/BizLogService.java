@@ -13,6 +13,6 @@ public interface BizLogService {
     @CachePut
     void saveLog(BizLogEntity log);
 
-    @Cacheable
+    @Cacheable(value="syslogs", key="#id")
     BizLogEntity getById(Long id);
 }

@@ -20,8 +20,8 @@ public class ApiController {
     @Autowired
     private ApiService apiService;
 
-//    @Autowired
-//    private RedisProvider redisProvider;
+    @Autowired
+    private RedisProvider redisProvider;
 
     @Autowired
     private BizLogService bizLogService;

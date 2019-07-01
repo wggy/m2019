@@ -4,6 +4,6 @@ import org.springframework.cache.annotation.Cacheable;
 
 public interface ApiService {
 
-    @Cacheable(key="'user_'+#key",value="'user'+#key")
+    @Cacheable(value="sys_logs", key="#id")
     String test(String key);
 }

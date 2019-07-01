@@ -5,6 +5,8 @@ import com.wggy.prune.rbac.repo.BizLogRepo;
 import com.wggy.prune.rbac.service.BizLogService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -15,6 +17,7 @@ import java.util.Optional;
  **/
 @Slf4j
 @Service
+@CacheConfig(cacheNames = "sys_log")
 public class BizLogServiceImpl implements BizLogService {
 
     @Autowired
@@ -25,6 +28,7 @@ public class BizLogServiceImpl implements BizLogService {
     }
 
     @Override
+    @Cacheable(cacheNames = "sys_log1",key = "#root.methodName+'['+#id+']'")
     public BizLogEntity getById(Long id) {
         log.info("访问数据库.....................");
         Optional<BizLogEntity> optional = bizLogRepo.findById(id);
