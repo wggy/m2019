@@ -22,6 +22,7 @@
         <module>feign</module>
 		<module>config</module>
         <module>sf-api</module>
+        <module>useful-part</module>
     </modules>
 
 	<properties>

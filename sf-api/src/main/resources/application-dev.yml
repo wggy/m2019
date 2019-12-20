@@ -15,7 +15,7 @@ spring:
         type: com.alibaba.druid.pool.DruidDataSource
         driverClassName: com.mysql.cj.jdbc.Driver
         druid:
-            url: jdbc:mysql://39.98.67.83:3306/xhl_db?useSSL=false&allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8
+            url: jdbc:mysql://127.0.0.1:3306/test_db?useSSL=false&allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8
             username: xhl
             password: xhl_2018!
             initial-size: 1
