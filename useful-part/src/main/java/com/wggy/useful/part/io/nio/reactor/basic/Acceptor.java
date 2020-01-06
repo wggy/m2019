@@ -1,4 +1,4 @@
-package com.wggy.useful.part.io.nio.reactor;
+package com.wggy.useful.part.io.nio.reactor.basic;
 
 import java.io.IOException;
 import java.nio.channels.Selector;
@@ -12,7 +12,7 @@ public class Acceptor implements Runnable {
     private ServerSocketChannel serverSocketChannel;
     private Selector selector;
 
-    public Acceptor(ServerSocketChannel serverSocketChannel, Selector selector) {
+    Acceptor(ServerSocketChannel serverSocketChannel, Selector selector) {
         this.serverSocketChannel = serverSocketChannel;
         this.selector = selector;
     }

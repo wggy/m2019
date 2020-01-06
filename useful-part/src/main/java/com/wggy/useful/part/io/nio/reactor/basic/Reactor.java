@@ -1,4 +1,4 @@
-package com.wggy.useful.part.io.nio.reactor;
+package com.wggy.useful.part.io.nio.reactor.basic;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -16,13 +16,22 @@ public class Reactor implements Runnable {
     private Selector selector;
     private ServerSocketChannel serverSocketChannel;
 
-    public Reactor(int port) throws IOException {
+    Reactor(int port) throws IOException {
+        // 创建多路复用器
         selector = Selector.open();
+
+        // 创建server管道
         serverSocketChannel = ServerSocketChannel.open();
+
+        // 绑定服务器ip和端口
         serverSocketChannel.socket().bind(new InetSocketAddress(port));
+        // selector模式下，所有通道非阻塞
         serverSocketChannel.configureBlocking(false);
 
+        // Reactor模式入口，最初给channel注册上去的事件都是accptor
         SelectionKey sk = serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
+
+        // 附加回调对象
         sk.attach(new Acceptor(serverSocketChannel, selector));
     }
 
@@ -32,8 +41,10 @@ public class Reactor implements Runnable {
         
         while (true) {
             try {
+                // 就绪时间到达前，该动作阻塞
                 selector.select();
 
+                // 获取到达的就绪事件
                 Set<SelectionKey> selectionKeys = selector.selectedKeys();
                 Iterator<SelectionKey> it = selectionKeys.iterator();
                 while (it.hasNext()) {
@@ -48,6 +59,7 @@ public class Reactor implements Runnable {
     }
 
     private void dispatch(SelectionKey next) {
+        // 获取附加对象
         Runnable r = (Runnable) next.attachment();
         if (r != null) {
             long be = System.currentTimeMillis();

@@ -1,4 +1,4 @@
-package com.wggy.useful.part.io.nio.reactor;
+package com.wggy.useful.part.io.nio.reactor.basic;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -24,18 +24,18 @@ public class AsyncHandler implements Runnable {
 
     private ByteBuffer readBuffer = ByteBuffer.allocate(1024);
     private ByteBuffer writeBuffer = ByteBuffer.allocate(2048);
-    // 开启线程数为4的异步处理线程池
+    // 开启线程数为5的异步处理线程池
     private static final ExecutorService workers = Executors.newFixedThreadPool(5);
 
-    public AsyncHandler(SocketChannel socketChannel, Selector selector) throws IOException {
-        this.socketChannel = socketChannel; // 接收客户端连接
+    AsyncHandler(SocketChannel c, Selector sel) throws IOException {
+        this.socketChannel = c; // 接收客户端连接
         this.socketChannel.configureBlocking(false); // 置为非阻塞模式
-        selectionKey = socketChannel.register(selector, 0); // 将该客户端注册到selector
-        selectionKey.attach(this); // 附加处理对象，当前是Handler对象
+        selectionKey = this.socketChannel.register(sel, 0); // 将该客户端注册到selector
         selectionKey.interestOps(SelectionKey.OP_READ); // 连接已完成，接下来就是读取动作
-        this.selector = selector;
-        this.selector.wakeup();
 
+        selectionKey.attach(this); // 附加处理对象，当前是Handler对象
+        this.selector = sel;
+        this.selector.wakeup();
     }
 
 
@@ -81,7 +81,13 @@ public class AsyncHandler implements Runnable {
             // 没断开连接，则再次切换到读
             status = READ;
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("异步处理send业务时发生异常！异常信息：" + e.getMessage());
+            selectionKey.cancel();
+            try {
+                socketChannel.close();
+            } catch (IOException e1) {
+                System.err.println("异步处理send业务关闭通道时发生异常！异常信息：" + e.getMessage());
+            }
         }
     }
 

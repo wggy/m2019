@@ -15,7 +15,7 @@ public class NonBlockingEchoClient {
     public static void main(String[] args) {
         try {
             SocketChannel socketChannel = SocketChannel.open();
-            socketChannel.connect(new InetSocketAddress(8002));
+            socketChannel.connect(new InetSocketAddress(6333));
 
             ByteBuffer writeBuffer = ByteBuffer.allocate(32);
             ByteBuffer readBuffer = ByteBuffer.allocate(32);
